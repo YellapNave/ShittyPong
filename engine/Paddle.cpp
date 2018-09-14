@@ -28,18 +28,31 @@ void Paddle::update() {
 }
 
 void Paddle::receiveMessage(InputHandler::Message msg) {
-	if (!isPlayer)
-		return;
-	switch (msg) {
-	case InputHandler::Message::PLAYER_MOVE_UP:
-		move(msg);
-		break;
-	case InputHandler::Message::PLAYER_MOVE_DOWN:
-		move(msg);
-		break;
-	case InputHandler::Message::PLAYER_SLOW:
-		move(msg);
-		break;
+	if (isPlayer) { // if the player gives input and the current object is the player, move it
+		switch (msg) {
+		case InputHandler::Message::PLAYER_MOVE_UP:
+			move(msg);
+			break;
+		case InputHandler::Message::PLAYER_MOVE_DOWN:
+			move(msg);
+			break;
+		case InputHandler::Message::PLAYER_SLOW:
+			move(msg);
+			break;
+		}
+	}
+	else { // if the current object is not the player and the enemy gives input, move it
+		switch (msg) {
+		case InputHandler::Message::ENEMY_MOVE_UP:
+			move(InputHandler::Message::PLAYER_MOVE_UP);
+			break;
+		case InputHandler::Message::ENEMY_MOVE_DOWN:
+			move(InputHandler::Message::PLAYER_MOVE_DOWN);
+			break;
+		case InputHandler::Message::ENEMY_SLOW:
+			move(InputHandler::Message::PLAYER_SLOW);
+			break;
+		}
 	}
 }
 

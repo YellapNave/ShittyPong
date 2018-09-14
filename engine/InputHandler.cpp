@@ -11,7 +11,9 @@ void InputHandler::handleInput() {
 		World::getInstance()->sendMessage(GAME_EXIT);
 		World::getInstance()->getWindow()->close();
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+	
+	// Main player input
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 		World::getInstance()->sendMessage(PLAYER_MOVE_DOWN);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
@@ -19,6 +21,17 @@ void InputHandler::handleInput() {
 	}
 	else {
 		World::getInstance()->sendMessage(PLAYER_SLOW);
+	}
+
+	// main enemy input
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		World::getInstance()->sendMessage(ENEMY_MOVE_DOWN);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		World::getInstance()->sendMessage(ENEMY_MOVE_UP);
+	}
+	else {
+		World::getInstance()->sendMessage(ENEMY_SLOW);
 	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
