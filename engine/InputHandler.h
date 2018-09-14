@@ -6,6 +6,6 @@ public:
 	InputHandler();
 	~InputHandler();
 	void handleInput();
-	enum Message { PLAYER_MOVE_UP, PLAYER_MOVE_DOWN, GAME_EXIT };
+	enum Message { GAME_EXIT, PLAYER_MOVE_UP, PLAYER_MOVE_DOWN, PLAYER_SLOW, LAUNCH };
 };
 

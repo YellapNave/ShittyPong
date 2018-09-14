@@ -16,7 +16,7 @@ bool World::worldExists = false;
 World::World() {}
 
 // initialize objects needed to render properly
-void World::Start() {
+void World::start() {
 	// initialize the background object
 	bg = new sf::RectangleShape();
 	bg->setSize(sf::Vector2f(SCREEN_X - (2 * BG_OUTLINE_THICKNESS), SCREEN_Y - (2 * BG_OUTLINE_THICKNESS)));
@@ -57,7 +57,20 @@ void World::sendMessage(InputHandler::Message msg) {
 	std::list<GameObject*>::reverse_iterator iterator = objects.rbegin();
 	for (; iterator != objects.rend(); iterator++) {
 		(*iterator)->receiveMessage(msg);
-		std::cout << msg << std::endl;
+		switch (msg) {
+		case InputHandler::Message::PLAYER_MOVE_UP: 
+			std::cout << "PLAYER_MOVE_UP" << std::endl;
+			break;
+		case InputHandler::Message::PLAYER_MOVE_DOWN:
+			std::cout << "PLAYER_MOVE_DOWN" << std::endl;
+			break;
+		case InputHandler::Message::PLAYER_SLOW:
+			std::cout << "PLAYER_SLOW" << std::endl;
+			break;
+		case InputHandler::Message::GAME_EXIT:
+			std::cout << "GAME_EXIT" << std::endl;
+			break;
+		}
 	}
 }
 
@@ -74,4 +87,12 @@ void World::removeGameObject(GameObject* obj) {
 // get the main renderwindow
 sf::RenderWindow* World::getWindow() {
 	return myWindow;
+}
+
+GameObject* World::getPlayer() {
+	return player;
+}
+
+void World::setPlayer(GameObject* p) {
+	player = p;
 }

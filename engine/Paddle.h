@@ -9,16 +9,16 @@ class Paddle :
 public:
 	Paddle();
 	~Paddle();
-	void Start(int, int, sf::Vector2f);
+	void start(int, int, sf::Vector2f);
 	void update();
-	sf::RectangleShape * getModel();
 	void receiveMessage(InputHandler::Message);
 	void setPlayer();
 	void move(InputHandler::Message);
+	sf::Vector2f getVelocity();
 private:
-	sf::RectangleShape * model;
 	bool isPlayer = false;
 	sf::Vector2f velocity = sf::Vector2f(0,0);
-	int speed = 1; // speed is pixels per second
+	int acceleration = 5; // acceleration is pixels per 16 ms
+	int speed = 25; // speed is pixels per second
 };
 

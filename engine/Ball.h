@@ -9,12 +9,13 @@ class Ball :
 public:
 	Ball();
 	~Ball();
-	void Start(sf::Vector2f);
+	void start();
 	void update();
-	sf::RectangleShape * getModel();
 	void receiveMessage(InputHandler::Message);
+	void reverseVelocity(Axis);
 private:
-	sf::RectangleShape * model;
-	int speed = 1;
+	bool launched = false;
+	sf::Vector2f velocity = sf::Vector2f(0, 0);
+	int speed = 20;
 };
 
