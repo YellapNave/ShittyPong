@@ -18,7 +18,7 @@ public:
 private:
 	bool isPlayer = false;
 	sf::Vector2f velocity = sf::Vector2f(0,0);
-	int acceleration = 5; // acceleration is pixels per 16 ms
-	int speed = 25; // speed is pixels per second
+	int acceleration = 200; // acceleration is pixels per 16 ms
+	int speed = SCREEN_Y; // speed is pixels per second
 };
 

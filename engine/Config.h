@@ -4,6 +4,7 @@
 #include <SFML/Window.hpp>
 
 static sf::Time MS_PER_UPDATE = sf::milliseconds(17);
+static float SCALE = MS_PER_UPDATE.asSeconds();
 static int SCREEN_X = 1920;
 static int SCREEN_Y = 1080;
 static int PWIDTH = SCREEN_X*0.01;

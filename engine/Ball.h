@@ -16,6 +16,6 @@ public:
 private:
 	bool launched = false;
 	sf::Vector2f velocity = sf::Vector2f(0, 0);
-	int speed = 20;
+	int speed = SCREEN_Y * 0.75;
 };
 

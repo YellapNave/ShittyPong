@@ -34,7 +34,7 @@ void Ball::update() {
 		reverseVelocity(GameObject::Axis::X);
 	}
 		
-	model->setPosition(model->getPosition() + velocity);
+	model->setPosition(model->getPosition() + (SCALE * velocity));
 }
 
 void Ball::receiveMessage(InputHandler::Message msg) {
