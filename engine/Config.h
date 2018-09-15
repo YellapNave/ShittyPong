@@ -1,12 +1,13 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
+#include "stdafx.h"
 
 static sf::Time MS_PER_UPDATE = sf::milliseconds(17);
+static int VELOCITY_ITERATIONS = 8;
+static int POSITION_ITERATIONS = 3;
 static float SCALE = MS_PER_UPDATE.asSeconds();
 static int SCREEN_X = 1920;
 static int SCREEN_Y = 1080;
+static int PIXELS_TO_METERS = 100;
 static int PWIDTH = SCREEN_X*0.01;
 static int PHEIGHT = SCREEN_Y*0.2;
 static int BALL_SIZE = 20;

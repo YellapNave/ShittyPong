@@ -1,9 +1,5 @@
 #pragma once
 #include "stdafx.h"
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <string>
 #include "InputHandler.h"
 
 class GameObject
@@ -18,7 +14,10 @@ public:
 	sf::Vector2f getPosition();
 	virtual sf::Vector2f getVelocity();
 	enum Axis { X, Y };
+	void setBody(b2Body*);
+	b2Body* getBody();
 protected:
 	sf::RectangleShape * model;
+	b2Body* myBody;
 };
 

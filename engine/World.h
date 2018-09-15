@@ -1,12 +1,5 @@
 #pragma once
 #include "stdafx.h"
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <list>
-#include <iterator>
-#include <iostream>
-#include <string>
 #include "GameObject.h"
 #include "InputHandler.h"
 #include "Config.h"
@@ -21,8 +14,11 @@ public:
 	void sendMessage(InputHandler::Message);
 	void update();
 	void render();
-	GameObject* getPlayer();
+	enum Object { PLAYER, ENEMY, BALL };
+	GameObject* getObj(Object);
+	b2World* getCollWorld();
 	void setPlayer(GameObject*);
+	void setObj(GameObject*, Object);
 private:
 	World();
 	static World* instance;
@@ -31,4 +27,7 @@ private:
 	sf::RenderWindow* myWindow;
 	sf::RectangleShape* bg;
 	GameObject* player;
+	GameObject* ball;
+	GameObject* enemy;
+	b2World* myWorld;
 };

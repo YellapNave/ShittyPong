@@ -17,6 +17,10 @@ World::World() {}
 
 // initialize objects needed to render properly
 void World::start() {
+	// initialize the physics world
+	b2Vec2 gravity(0, 0);
+	myWorld = new b2World(gravity);
+
 	// initialize the background object
 	bg = new sf::RectangleShape();
 	bg->setSize(sf::Vector2f(SCREEN_X - (2 * BG_OUTLINE_THICKNESS), SCREEN_Y - (2 * BG_OUTLINE_THICKNESS)));
@@ -35,6 +39,9 @@ void World::update() {
 	for (; iterator != objects.rend(); iterator++) {
 		(*iterator)->update();
 	}
+
+	// step the physics world
+	myWorld->Step(MS_PER_UPDATE.asSeconds(), VELOCITY_ITERATIONS, POSITION_ITERATIONS);
 }
 
 // clear, render background, render all models, then display 
@@ -89,10 +96,33 @@ sf::RenderWindow* World::getWindow() {
 	return myWindow;
 }
 
-GameObject* World::getPlayer() {
-	return player;
+GameObject* World::getObj(Object obj) {
+	switch (obj) {
+	case PLAYER:
+		return player;
+		break;
+	case ENEMY:
+		return enemy;
+		break;
+	case BALL:
+		return ball;
+	}
 }
 
-void World::setPlayer(GameObject* p) {
-	player = p;
+b2World* World::getCollWorld() {
+	return myWorld;
 }
+
+void World::setObj(GameObject* p, Object obj) {
+	switch (obj) {
+	case PLAYER:
+		player = p;
+		break;
+	case ENEMY:
+		enemy = p;
+		break;
+	case BALL:
+		ball = p;
+	}
+}
+

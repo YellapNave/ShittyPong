@@ -19,3 +19,11 @@ sf::RectangleShape * GameObject::getModel() { return model; }
 sf::Vector2f GameObject::getPosition() { return model == NULL ? sf::Vector2f(0, 0) : model->getPosition(); }
 
 sf::Vector2f GameObject::getVelocity() { return sf::Vector2f(0, 0); }
+
+void GameObject::setBody(b2Body* body) {
+	myBody = body;
+}
+
+b2Body* GameObject::getBody() {
+	return myBody;
+}

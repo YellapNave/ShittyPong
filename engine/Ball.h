@@ -12,7 +12,7 @@ public:
 	void start();
 	void update();
 	void receiveMessage(InputHandler::Message);
-	void reverseVelocity(Axis);
+	sf::Vector2f reverseVelocity(Axis);
 private:
 	bool launched = false;
 	sf::Vector2f velocity = sf::Vector2f(0, 0);

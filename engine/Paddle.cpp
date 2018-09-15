@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Paddle.h"
-#include <iostream>
 
 Paddle::Paddle()
 {
@@ -25,6 +24,7 @@ void Paddle::update() {
 	else if (model->getPosition().y >= (SCREEN_Y - BG_OUTLINE_THICKNESS - PHEIGHT) && velocity.y > 0)
 		velocity = sf::Vector2f(0, 0);
 	model->setPosition(model->getPosition() + (SCALE * velocity));
+	myBody->SetLinearVelocity(b2Vec2(velocity.y / PIXELS_TO_METERS, velocity.x / PIXELS_TO_METERS));
 }
 
 void Paddle::receiveMessage(InputHandler::Message msg) {
@@ -81,5 +81,4 @@ sf::Vector2f Paddle::getVelocity() {
 
 void Paddle::setPlayer() {
 	isPlayer = true;
-	World::getInstance()->setPlayer(this);
 }
