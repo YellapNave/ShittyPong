@@ -65,5 +65,5 @@ sf::Vector2f Ball::reverseVelocity(Axis axis) {
 		break;
 	}
 
-	return velocity;
+	return tempVel;
 }

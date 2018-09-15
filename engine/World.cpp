@@ -38,6 +38,8 @@ void World::update() {
 	std::list<GameObject*>::reverse_iterator iterator = objects.rbegin();
 	for (; iterator != objects.rend(); iterator++) {
 		(*iterator)->update();
+		b2Vec2 pos = (*iterator)->getBody()->GetPosition();
+		std::cout << pos.x << " " << pos.y << std::endl;
 	}
 
 	// step the physics world
@@ -72,7 +74,7 @@ void World::sendMessage(InputHandler::Message msg) {
 			std::cout << "PLAYER_MOVE_DOWN" << std::endl;
 			break;
 		case InputHandler::Message::PLAYER_SLOW:
-			std::cout << "PLAYER_SLOW" << std::endl;
+			// std::cout << "PLAYER_SLOW" << std::endl;
 			break;
 		case InputHandler::Message::GAME_EXIT:
 			std::cout << "GAME_EXIT" << std::endl;
