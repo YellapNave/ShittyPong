@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Paddle.h"
-#include <iostream>
 
 Paddle::Paddle()
 {

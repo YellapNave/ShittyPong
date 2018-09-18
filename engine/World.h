@@ -1,12 +1,5 @@
 #pragma once
 #include "stdafx.h"
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <list>
-#include <iterator>
-#include <iostream>
-#include <string>
 #include "GameObject.h"
 #include "InputHandler.h"
 #include "Config.h"

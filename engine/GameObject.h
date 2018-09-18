@@ -1,9 +1,5 @@
 #pragma once
 #include "stdafx.h"
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <string>
 #include "InputHandler.h"
 
 class GameObject

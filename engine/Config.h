@@ -1,7 +1,5 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
+#include "stdafx.h"
 
 static sf::Time MS_PER_UPDATE = sf::milliseconds(17);
 static float SCALE = MS_PER_UPDATE.asSeconds();
