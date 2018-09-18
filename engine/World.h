@@ -7,6 +7,7 @@
 #include <iterator>
 #include <iostream>
 #include <string>
+#include <Windows.h>
 #include "GameObject.h"
 #include "InputHandler.h"
 #include "Config.h"

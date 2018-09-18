@@ -28,10 +28,14 @@ void Ball::update() {
 		reverseVelocity(GameObject::Axis::Y);
 	
 	if (model->getPosition().x <= BG_OUTLINE_THICKNESS) {
-		reverseVelocity(GameObject::Axis::X);
+		velocity = sf::Vector2f(0,0);
+		launched = false;
+		World::getInstance()->sendMessage(InputHandler::Message::SCORE_PLAYER);
 	}
 	else if (model->getPosition().x >= SCREEN_X - BG_OUTLINE_THICKNESS - BALL_SIZE) {
-		reverseVelocity(GameObject::Axis::X);
+		velocity = sf::Vector2f(0, 0);
+		launched = false;
+		World::getInstance()->sendMessage(InputHandler::Message::SCORE_ENEMY);
 	}
 		
 	model->setPosition(model->getPosition() + (SCALE * velocity));
