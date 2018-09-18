@@ -23,8 +23,9 @@ void Paddle::update() {
 		velocity = sf::Vector2f(0, 0);
 	else if (model->getPosition().y >= (SCREEN_Y - BG_OUTLINE_THICKNESS - PHEIGHT) && velocity.y > 0)
 		velocity = sf::Vector2f(0, 0);
+
 	model->setPosition(model->getPosition() + (SCALE * velocity));
-	myBody->SetLinearVelocity(b2Vec2(velocity.y / PIXELS_TO_METERS, velocity.x / PIXELS_TO_METERS));
+	myBody->SetLinearVelocity(b2Vec2(0, velocity.y / PIXELS_TO_METERS));
 }
 
 void Paddle::receiveMessage(InputHandler::Message msg) {

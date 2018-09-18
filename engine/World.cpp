@@ -39,7 +39,7 @@ void World::update() {
 	for (; iterator != objects.rend(); iterator++) {
 		(*iterator)->update();
 		b2Vec2 pos = (*iterator)->getBody()->GetPosition();
-		std::cout << pos.x << " " << pos.y << std::endl;
+		std::cout << pos.x << ", " << pos.y << std::endl;
 	}
 
 	// step the physics world
