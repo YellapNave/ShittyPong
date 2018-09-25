@@ -79,6 +79,24 @@ void World::sendMessage(InputHandler::Message msg) {
 		case InputHandler::Message::GAME_EXIT:
 			std::cout << "GAME_EXIT" << std::endl;
 			break;
+
+			// FIX THIS SHIT CODE
+
+		case InputHandler::Message::SCORE_PLAYER:
+			std::cout << "SCORE_PLAYER" << std::endl;
+			bg->setFillColor(sf::Color::Blue);
+			render();
+			Sleep(250);
+			bg->setFillColor(sf::Color::Black);
+		case InputHandler::Message::SCORE_ENEMY:
+			std::cout << "SCORE_ENEMY" << std::endl;
+			bg->setFillColor(sf::Color::Red);
+			render();
+			Sleep(250);
+			bg->setFillColor(sf::Color::Black);
+		}
+		if (msg == InputHandler::Message::SCORE_PLAYER || msg == InputHandler::Message::SCORE_ENEMY) {
+			break;
 		}
 	}
 }
