@@ -22,16 +22,22 @@ void Ball::update() {
 	if (!launched)
 		model->setPosition(World::getInstance()->getPlayer()->getPosition() + sf::Vector2f(-BALL_SIZE - 12, PHEIGHT / 2 - BALL_SIZE / 2));
 
-	if (model->getPosition().y <= BG_OUTLINE_THICKNESS && velocity.y < 0)
+	sf::Vector2f position = model->getPosition();
+	sf::Vector2f playerPosition = World::getInstance()->getPlayer()->getPosition();
+
+	if (position.y <= BG_OUTLINE_THICKNESS && velocity.y < 0)
 		reverseVelocity(GameObject::Axis::Y);
-	else if (model->getPosition().y >= (SCREEN_Y - BG_OUTLINE_THICKNESS - BALL_SIZE) && velocity.y > 0)
+	else if (position.y >= (SCREEN_Y - BG_OUTLINE_THICKNESS - BALL_SIZE) && velocity.y > 0)
 		reverseVelocity(GameObject::Axis::Y);
+
+	if (position.x <= ENEMY_START.x && position.y > (ENEMY_START.y - BALL_SIZE) && position.y < (ENEMY_START.y + PHEIGHT))
+		reverseVelocity(GameObject::Axis::X);
 	
-	if (model->getPosition().x <= BG_OUTLINE_THICKNESS) {
-		reverseVelocity(GameObject::Axis::X);
+	if (position.x <= BG_OUTLINE_THICKNESS) {
+		// score player
 	}
-	else if (model->getPosition().x >= SCREEN_X - BG_OUTLINE_THICKNESS - BALL_SIZE) {
-		reverseVelocity(GameObject::Axis::X);
+	else if (position.x >= SCREEN_X - BG_OUTLINE_THICKNESS - BALL_SIZE) {
+		// score enemy
 	}
 		
 	model->setPosition(model->getPosition() + (SCALE * velocity));
