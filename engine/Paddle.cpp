@@ -80,5 +80,9 @@ sf::Vector2f Paddle::getVelocity() {
 
 void Paddle::setPlayer() {
 	isPlayer = true;
-	World::getInstance()->setPlayer(this);
+	World::getInstance()->setObject(World::Object::PLAYER, this);
+}
+
+void Paddle::setEnemy() {
+	World::getInstance()->setObject(World::Object::ENEMY, this);
 }

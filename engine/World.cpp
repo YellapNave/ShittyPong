@@ -54,6 +54,15 @@ void World::render() {
 
 // send a 'game event' message to all gameobjects
 void World::sendMessage(InputHandler::Message msg) {
+	switch (msg) { // check if the message is a score
+	case InputHandler::Message::SCORE_PLAYER:
+		std::cout << "SCORE_PLAYER" << std::endl;
+		score(PLAYER);
+		break;
+	case InputHandler::Message::SCORE_ENEMY:
+		std::cout << "SCORE_ENEMY" << std::endl;
+		score(ENEMY);
+	}
 	std::list<GameObject*>::reverse_iterator iterator = objects.rbegin();
 	for (; iterator != objects.rend(); iterator++) {
 		(*iterator)->receiveMessage(msg);
@@ -69,24 +78,6 @@ void World::sendMessage(InputHandler::Message msg) {
 			break;
 		case InputHandler::Message::GAME_EXIT:
 			std::cout << "GAME_EXIT" << std::endl;
-			break;
-
-			// FIX THIS SHIT CODE
-
-		case InputHandler::Message::SCORE_PLAYER:
-			std::cout << "SCORE_PLAYER" << std::endl;
-			bg->setFillColor(sf::Color::Blue);
-			render();
-			Sleep(250);
-			bg->setFillColor(sf::Color::Black);
-		case InputHandler::Message::SCORE_ENEMY:
-			std::cout << "SCORE_ENEMY" << std::endl;
-			bg->setFillColor(sf::Color::Red);
-			render();
-			Sleep(250);
-			bg->setFillColor(sf::Color::Black);
-		}
-		if (msg == InputHandler::Message::SCORE_PLAYER || msg == InputHandler::Message::SCORE_ENEMY) {
 			break;
 		}
 	}
@@ -107,10 +98,45 @@ sf::RenderWindow* World::getWindow() {
 	return myWindow;
 }
 
-GameObject* World::getPlayer() {
-	return player;
+GameObject* World::getObject(Object obj) {
+	switch (obj) {
+	case PLAYER:
+		return player;
+		break;
+	case ENEMY:
+		return enemy;
+		break;
+	case BALL:
+		return ball;
+	}
 }
 
-void World::setPlayer(GameObject* p) {
-	player = p;
+void World::setObject(Object obj, GameObject* p) {
+	switch (obj) {
+	case PLAYER:
+		player = p;
+		break;
+	case ENEMY:
+		enemy = p;
+		break;
+	case BALL:
+		ball = p;
+		break;
+	}
+}
+
+void World::score(Object obj) {
+	switch (obj) {
+	case World::Object::PLAYER:
+		bg->setFillColor(sf::Color::Blue);
+		render();
+		Sleep(250);
+		bg->setFillColor(sf::Color::Black);
+		break;
+	case World::Object::ENEMY:
+		bg->setFillColor(sf::Color::Red);
+		render();
+		Sleep(250);
+		bg->setFillColor(sf::Color::Black);
+	}
 }

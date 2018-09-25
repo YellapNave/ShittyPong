@@ -14,14 +14,18 @@ public:
 	void sendMessage(InputHandler::Message);
 	void update();
 	void render();
-	GameObject* getPlayer();
-	void setPlayer(GameObject*);
+	enum Object { PLAYER, ENEMY, BALL};
+	GameObject* getObject(Object);
+	void setObject(Object, GameObject*);
 private:
 	World();
+	void score(Object);
 	static World* instance;
 	static bool worldExists;
 	std::list<GameObject*> objects;
 	sf::RenderWindow* myWindow;
 	sf::RectangleShape* bg;
 	GameObject* player;
+	GameObject* enemy;
+	GameObject* ball;
 };

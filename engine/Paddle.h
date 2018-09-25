@@ -13,6 +13,7 @@ public:
 	void update();
 	void receiveMessage(InputHandler::Message);
 	void setPlayer();
+	void setEnemy();
 	void move(InputHandler::Message);
 	sf::Vector2f getVelocity();
 private:
