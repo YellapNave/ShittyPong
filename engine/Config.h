@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
 
-static sf::Time MS_PER_UPDATE = sf::milliseconds(17);
+static sf::Time MS_PER_UPDATE = sf::milliseconds(16.6);
 static float SCALE = MS_PER_UPDATE.asSeconds();
 static int SCREEN_X = 1920;
 static int SCREEN_Y = 1080;
