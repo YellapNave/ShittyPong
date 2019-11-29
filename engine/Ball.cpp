@@ -16,7 +16,7 @@ Ball::~Ball() {
 void Ball::start() {
 	model = new sf::RectangleShape();
 	model->setSize(sf::Vector2f(BALL_SIZE, BALL_SIZE));
-	model->setFillColor(sf::Color::White);
+	model->setFillColor(sf::Color::Cyan);
 }
 
 void Ball::update() {
@@ -27,21 +27,27 @@ void Ball::update() {
 	sf::Vector2f playerPosition = World::getInstance()->getObject(World::Object::PLAYER)->getPosition();
 	sf::Vector2f enemyPosition = World::getInstance()->getObject(World::Object::ENEMY)->getPosition();
 
+	// bounce vertically
 	if (position.y <= BG_OUTLINE_THICKNESS && velocity.y < 0)
 		reverseVelocity(GameObject::Axis::Y);
 	else if (position.y >= (SCREEN_Y - BG_OUTLINE_THICKNESS - BALL_SIZE) && velocity.y > 0)
 		reverseVelocity(GameObject::Axis::Y);
 	
-	if (position.x <= enemyPosition.x && position.x >= enemyPosition.x - BALL_SIZE) {
+	// enemy hits the ball
+	if (position.x <= enemyPosition.x + BALL_SIZE && position.x >= enemyPosition.x && !playerTurn) {
 		if (position.y > (enemyPosition.y - BALL_SIZE) && position.y < (enemyPosition.y + PHEIGHT)) {
 			reverseVelocity(GameObject::Axis::X);
 			velocity += World::getInstance()->getObject(World::Object::ENEMY)->getVelocity();
+			playerTurn = !playerTurn;
 		}
 	}
-	else if (position.x >= (playerPosition.x - BALL_SIZE) && position.x <= (playerPosition.x + BALL_SIZE)) {
+
+	// player hits the ball
+	else if (position.x >= (playerPosition.x - BALL_SIZE) && position.x <= (playerPosition.x + BALL_SIZE) && playerTurn) {
 		if (position.y >(playerPosition.y - BALL_SIZE) && position.y < (playerPosition.y + PHEIGHT)) {
 			reverseVelocity(GameObject::Axis::X);
 			velocity += World::getInstance()->getObject(World::Object::PLAYER)->getVelocity();
+			playerTurn = !playerTurn;
 		}
 	}
 
@@ -69,8 +75,11 @@ void Ball::update() {
 void Ball::receiveMessage(InputHandler::Message msg) {
 	switch (msg) {
 	case InputHandler::Message::LAUNCH:
-		launched = true;
-		velocity = sf::Vector2f(-speed, World::getInstance()->getObject(World::Object::PLAYER)->getVelocity().y);
+		if (!launched) {
+			launched = true;
+			playerTurn = false;
+			velocity = sf::Vector2f(-speed, World::getInstance()->getObject(World::Object::PLAYER)->getVelocity().y);
+		}
 		break;
 	}
 }
@@ -86,5 +95,5 @@ void Ball::reverseVelocity(Axis axis) {
 		tempVel.y = -velocity.y;
 		velocity = tempVel;
 		break;
-	}
+	};
 }

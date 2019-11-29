@@ -22,8 +22,22 @@ void World::start() {
 	bg->setSize(sf::Vector2f(SCREEN_X - (2 * BG_OUTLINE_THICKNESS), SCREEN_Y - (2 * BG_OUTLINE_THICKNESS)));
 	bg->setPosition(BG_OUTLINE_THICKNESS, BG_OUTLINE_THICKNESS);
 	bg->setFillColor(sf::Color::Black);
-	bg->setOutlineColor(sf::Color::White);
+	bg->setOutlineColor(sf::Color::Cyan);
 	bg->setOutlineThickness(BG_OUTLINE_THICKNESS);
+
+	// initialize font for scoring
+	font = new sf::Font();
+	if (!font->loadFromFile("space.ttf"))
+		std::cout << "FONT NOT LOADED" << std::endl;
+	else std::cout << "FONT LOADED" << std::endl;
+
+	// set up scoreboard
+	scoreboard = new sf::Text();
+	scoreboard->setFont(*font);
+	scoreboard->setCharacterSize(120);
+	scoreboard->setPosition(SCREEN_X / 4, SCREEN_Y / 5);
+	scoreboard->setFillColor(sf::Color::Cyan);
+	scoreboard->setString("score: " + std::to_string(enemyScore) + " " + std::to_string(playerScore));
 
 	// initialize the main renderwindow
 	myWindow = new sf::RenderWindow(sf::VideoMode(SCREEN_X, SCREEN_Y), "Shitty Pong", sf::Style::Fullscreen);
@@ -37,18 +51,17 @@ void World::update() {
 	}
 }
 
-// clear, render background, render all models, then display 
+// clear, render background, render scoreboard, render all models, then display 
 void World::render() {
 	myWindow->clear();
 	myWindow->draw(*bg);
-
+	myWindow->draw(*scoreboard);
 	std::list<GameObject*>::reverse_iterator iterator = objects.rbegin();
 	for (; iterator != objects.rend(); iterator++) {
 		sf::RectangleShape * model = (*iterator)->getModel();
 		if (model != NULL)
 			myWindow->draw(*model);
 	}
-
 	myWindow->display();
 }
 
@@ -62,7 +75,9 @@ void World::sendMessage(InputHandler::Message msg) {
 	case InputHandler::Message::SCORE_ENEMY:
 		std::cout << "SCORE_ENEMY" << std::endl;
 		score(ENEMY);
+		break;
 	}
+
 	std::list<GameObject*>::reverse_iterator iterator = objects.rbegin();
 	for (; iterator != objects.rend(); iterator++) {
 		(*iterator)->receiveMessage(msg);
@@ -78,24 +93,6 @@ void World::sendMessage(InputHandler::Message msg) {
 			break;
 		case InputHandler::Message::GAME_EXIT:
 			std::cout << "GAME_EXIT" << std::endl;
-			break;
-
-			// FIX THIS SHIT CODE
-
-		case InputHandler::Message::SCORE_PLAYER:
-			std::cout << "SCORE_PLAYER" << std::endl;
-			bg->setFillColor(sf::Color::Blue);
-			render();
-			Sleep(250);
-			bg->setFillColor(sf::Color::Black);
-		case InputHandler::Message::SCORE_ENEMY:
-			std::cout << "SCORE_ENEMY" << std::endl;
-			bg->setFillColor(sf::Color::Red);
-			render();
-			Sleep(250);
-			bg->setFillColor(sf::Color::Black);
-		}
-		if (msg == InputHandler::Message::SCORE_PLAYER || msg == InputHandler::Message::SCORE_ENEMY) {
 			break;
 		}
 	}
@@ -148,13 +145,16 @@ void World::score(Object obj) {
 	case World::Object::PLAYER:
 		bg->setFillColor(sf::Color::Blue);
 		render();
-		Sleep(250);
+		Sleep(500);
+		playerScore++;
 		bg->setFillColor(sf::Color::Black);
 		break;
 	case World::Object::ENEMY:
-		bg->setFillColor(sf::Color::Red);
+		bg->setFillColor(sf::Color::White);
 		render();
-		Sleep(250);
+		Sleep(500);
+		enemyScore++;
 		bg->setFillColor(sf::Color::Black);
 	}
+	scoreboard->setString("score: " + std::to_string(enemyScore) + " " + std::to_string(playerScore));
 }

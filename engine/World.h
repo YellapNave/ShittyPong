@@ -20,11 +20,15 @@ public:
 private:
 	World();
 	void score(Object);
+	int playerScore;
+	int enemyScore;
 	static World* instance;
 	static bool worldExists;
 	std::list<GameObject*> objects;
 	sf::RenderWindow* myWindow;
 	sf::RectangleShape* bg;
+	sf::Font* font;
+	sf::Text* scoreboard;
 	GameObject* player;
 	GameObject* enemy;
 	GameObject* ball;

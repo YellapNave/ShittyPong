@@ -10,7 +10,7 @@ void Paddle::start(int x, int y, sf::Vector2f vec) {
 	model = new sf::RectangleShape();
 	model->setSize(sf::Vector2f(x, y));
 	model->setPosition(vec);
-	model->setFillColor(sf::Color::White);
+	model->setFillColor(sf::Color::Cyan);
 }
 
 Paddle::~Paddle()

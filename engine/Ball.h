@@ -15,6 +15,7 @@ public:
 	void reverseVelocity(Axis);
 private:
 	bool launched = false;
+	bool playerTurn = false;
 	sf::Vector2f velocity = sf::Vector2f(0, 0);
 	int speed = SCREEN_Y * 0.75;
 };
